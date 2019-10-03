@@ -1,5 +1,5 @@
 class Scraper
-  def self.scrape_topics(url)
+  def self.scrape_page(url)
     doc = open_url(url)
     topics = doc.css("article.topic")
     topic_hashes = topics.map do |topic|
@@ -14,7 +14,13 @@ class Scraper
         votes: topic.css("div.topic-voting span.topic-voting-votes").text
       }
     end
-    Topic.create_from_array(topic_hashes)
+    topics = Topic.create_from_array(topic_hashes)
+    page = Page.create(
+      {
+        url: url,
+        topics: topics,
+      }
+    )
     binding.pry
   end
 
