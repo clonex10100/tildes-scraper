@@ -1,19 +1,13 @@
 module Memorable
   module ClassMethods
-    @@all = []
-
     def create(attributes)
       topic = new(attributes)
-      @@all << topic
+      self.all << topic
       topic
     end
 
     def create_from_array(array)
       array.map { |attributes| create(attributes) }
-    end
-
-    def all
-      @@all
     end
   end
 
