@@ -24,7 +24,7 @@ class Page
     url_array = url.split("?")
     query_hash = {order: "Activity", period: "All Time"}
     group = url.scan(/~\w*/)
-    query_hash[:group] = group.length == 1 ? group : "Front Page"
+    query_hash[:group] = group.length == 1 ? group.first : nil
     if url_array.length == 2
       query_hash = url_array[1].split("&").reduce(query_hash) do |hash, var|
         var = var.split("=")

@@ -5,10 +5,6 @@ module Memorable
       self.all << topic
       topic
     end
-
-    def create_from_array(array)
-      array.map { |attributes| create(attributes) }
-    end
   end
 
   module InstanceMethods
