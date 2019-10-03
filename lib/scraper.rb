@@ -26,19 +26,19 @@ class Scraper
         votes: topic.css("div.topic-voting span.topic-voting-votes").text
       }
       topic_text = topic.css(".topic-text-excerpt")
+      topic_text = topic_text.children.reject { |el| el.name == "summary" }
       if topic_text.length > 0
-        if topic_text.length == 1
-          info[:topic_text] = topic_text.text
-        else
-          info[:topic_text] = topic_text[1..-1].text
-        end
+        info[:topic_text] = topic_text.reduce("") { |s, el| s + el.text}
       else
         info[:link] = title.attribute("href").value
       end
       info
     end
-    binding.pry
     output_array
+  end
+
+  def self.scrape_comments(url)
+    doc = open_url(url)
   end
 
   private

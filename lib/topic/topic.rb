@@ -27,6 +27,11 @@ class Topic
     end
   end
 
+  def display 
+    puts "#{title} Votes:#{votes}"
+    puts "#{group} WC:#{word_count} #{age}"
+  end
+
   class TopicError < StandardError
     def message
       "Topic is neither text topic nor link topic"

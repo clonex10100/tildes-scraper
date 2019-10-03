@@ -19,5 +19,6 @@ class PageManager
     @@index += 1;
     #Create topic objects
     Topic.create_from_array(data[1])
+    page
   end
 end

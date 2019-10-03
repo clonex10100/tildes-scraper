@@ -19,6 +19,14 @@ class Page
     Topic.find_by_page_id(page_id)
   end
 
+  def display
+    topics.each.with_index(1) do |topic, index|
+      puts "#{index}. #{topic.type}post"
+      topic.display
+      puts ""
+    end
+  end
+
   private
   def get_query
     url_array = url.split("?")
