@@ -12,21 +12,14 @@ class Page
   private
   def get_query
     url_array = url.split("?")
-    query_hash = {}
-    if url_array.length > 1
-      query = url_array[1]
-      query_hash = query.split("&").reduce(query_hash) do |hash, var|
+    query_hash = {order: "Activity", period: "All Time"}
+    if url_array.length == 2
+      query_hash = url_array[1].split("&").reduce(query_hash) do |hash, var|
         var = var.split("=")
         hash[var[0].to_sym] = var[1]
+        hash
       end
     end
-    if !query_hash.keys.include?(:order)
-      query_hash[:order] = "Activity"
-    end
-    if !query_hash.keys.include?(:period)
-      query_hash[:period] = "All Time"
-    end
-    binding.pry
     add_attributes(query_hash)
   end
 end
