@@ -41,7 +41,6 @@ class Scraper
     doc = open_url(url)
     comments = doc.css("#comments")
     array = scrape_children(comments)
-    binding.pry
     array
   end
 
