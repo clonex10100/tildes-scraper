@@ -39,6 +39,8 @@ class Scraper
 
   def self.scrape_comments(url)
     doc = open_url(url)
+    comments = doc.css("div.comment-itself")
+    binding.pry
   end
 
   private
