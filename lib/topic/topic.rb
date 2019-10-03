@@ -1,5 +1,5 @@
 class Topic
-  attr_accessor :title, :group, :word_count, :age, :votes, :comment_link, :page_id
+  attr_accessor :title, :group, :word_count, :age, :votes, :comment_link, :comments, :page_id
 
   extend Memorable::ClassMethods
   include Memorable::InstanceMethods
@@ -29,7 +29,7 @@ class Topic
 
   def display 
     puts "#{title} Votes:#{votes}"
-    puts "#{group} WC:#{word_count} #{age}"
+    puts "#{group} WC:#{word_count} #{age} #{comments}"
   end
 
   class TopicError < StandardError

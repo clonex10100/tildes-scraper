@@ -19,6 +19,7 @@ class Scraper
       metadata = topic.css("div.topic-metadata")
       info = {
         title: title.text,
+        comments: topic.css("div.topic-info-comments").text.strip,
         comment_link: topic.css("div.topic-info-comments a").attribute("href").value.split(" ").first,
         group: metadata.css("span.topic-group").text,
         word_count: metadata.css("span.topic-content-metadata").text.split(" ")[0],
