@@ -39,11 +39,22 @@ class Scraper
 
   def self.scrape_comments(url)
     doc = open_url(url)
-    comments = doc.css("div.comment-itself")
+    comments = doc.css("#comments")
+    array = scrape_children(comments)
     binding.pry
+    array
   end
 
   private
+  def self.scrape_children(top_comment)
+    comments = top_comment.css("> li > article").map do |comment|
+      hash = {
+        text: comment.css("> div.comment-itself").first.text,
+        children: scrape_children(comment.css("> ol.comment-tree-replies"))
+      }
+      hash
+    end
+  end
   def self.open_url(url)
     Nokogiri::HTML(open(url))
   end
