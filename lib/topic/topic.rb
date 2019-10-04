@@ -7,7 +7,7 @@ class Topic
   @@all = []
 
   def self.find_by_page_id(id)
-    all.select { |topic| topic.page_id == id } 
+    all.select { |topic| topic.page_id == id }
   end
 
   def self.all
@@ -27,7 +27,7 @@ class Topic
     end
   end
 
-  def display 
+  def display
     puts "#{title} Votes:#{votes}"
     puts "#{group} WC:#{word_count} #{age} #{comments}"
   end

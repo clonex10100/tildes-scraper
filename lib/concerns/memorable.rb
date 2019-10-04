@@ -8,7 +8,7 @@ module Memorable
 
     def create_from_array(array)
       array.map do |hash|
-        create(hash) 
+        create(hash)
       end
     end
   end

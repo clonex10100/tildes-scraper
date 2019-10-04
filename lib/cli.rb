@@ -119,4 +119,3 @@ class CommandLineInterface
       Group.create_from_array(Scraper.scrape_groups("/groups"))
     end
   end
-end

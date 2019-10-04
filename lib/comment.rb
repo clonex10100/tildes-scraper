@@ -19,7 +19,7 @@ class Comment
   end
 
   def self.find_by_url(url)
-    all.select { |comment| comment.url == url }  
+    all.select { |comment| comment.url == url }
   end
 
   def display(indent = 0)
