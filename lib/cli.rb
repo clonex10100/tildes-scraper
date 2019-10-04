@@ -12,6 +12,8 @@ class CommandLineInterface
         help
       when "exit"
         puts "Goodbye"
+      when "groups"
+        groups
       when "list"
         page_list
       when "view"
@@ -26,6 +28,13 @@ class CommandLineInterface
     index = validate_index(index_string)
     return nil if !index
     @topics[index].display_content
+  end
+
+  def groups
+    if Group.all.length == 0
+      Group.create_from_array(Scraper.scrape_groups("/groups"))
+    end
+    Group.display
   end
 
   def comments(index_string)

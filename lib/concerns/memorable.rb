@@ -5,6 +5,12 @@ module Memorable
       self.all << topic
       topic
     end
+
+    def create_from_array(array)
+      array.map do |hash|
+        create(hash) 
+      end
+    end
   end
 
   module InstanceMethods

@@ -39,6 +39,19 @@ class Scraper
     output_array
   end
 
+  def self.scrape_groups(url)
+    doc = open_url(BASE_URL + url)
+    out = doc.css("tr.group-level-0").map do |group|
+      {
+        name: group.css("a").text,
+        description: group.css("p").text,
+        subs: group.css("span.group-subscription-count").text.split(" ").first
+      }
+    end
+    binding.pry
+    out
+  end
+
   def self.scrape_comments(url)
     doc = open_url(BASE_URL + url)
     comments = doc.css("#comments")
