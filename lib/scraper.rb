@@ -48,7 +48,6 @@ class Scraper
         subs: group.css("span.group-subscription-count").text.split(" ").first
       }
     end
-    binding.pry
     out
   end
 
