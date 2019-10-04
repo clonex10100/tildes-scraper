@@ -47,8 +47,9 @@ class Scraper
   private
   def self.scrape_children(top_comment)
     comments = top_comment.css("> li > article").map do |comment|
+      comment_info = comment.css("> div.comment-itself").first
       hash = {
-        text: comment.css("> div.comment-itself").first.text,
+        text: comment_info.css("comment-text").text,
         children: scrape_children(comment.css("> ol.comment-tree-replies"))
       }
       hash
