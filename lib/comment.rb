@@ -2,7 +2,7 @@ class Comment
   extend Memorable::ClassMethods
   include Memorable::InstanceMethods
 
-  attr_accessor :children, :parent, :text, :author, :votes, :age, :url, :level
+  attr_accessor :children, :text, :author, :votes, :age, :url, :level
 
   @@all = []
 
@@ -27,7 +27,19 @@ class Comment
   end
 
   def display(indent = 0)
-    puts "\t" * indent + self.text + "\n\n"
+    indent(indent)
+    puts self.author
+    display_text(indent)
+    indent(indent)
+    puts "Votes: " + self.votes if self.votes
+    puts "-" * 10
+  end
+
+  def display_text(indent = 0)
+    self.text.split("\n").each do |line|
+      indent(indent)
+      puts line
+    end
   end
 
   def self.display_page(url)
@@ -48,5 +60,10 @@ class Comment
 
   def self.all
     @@all
+  end
+
+  private
+  def indent(n)
+    print "\t" * n
   end
 end

@@ -65,12 +65,15 @@ class Scraper
       comment_info = comment.css("> div.comment-itself").first
       hash = {
         text: comment_info.css("div.comment-text").text.strip,
+        author: comment_info.css("a.link-user").text,
+        votes: comment_info.css("div.comment-votes").text.split(" ").first,
         level: level,
         url: url,
         children: scrape_children(comment.css("> ol.comment-tree-replies"), url, level + 1)
       }
       hash
     end
+    comments
   end
   def self.open_url(url)
     Nokogiri::HTML(open(url))
