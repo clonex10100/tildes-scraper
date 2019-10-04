@@ -60,13 +60,14 @@ class Scraper
   end
 
   private
-  def self.scrape_children(top_comment, url)
+  def self.scrape_children(top_comment, url, level = 0)
     comments = top_comment.css("> li > article").map do |comment|
       comment_info = comment.css("> div.comment-itself").first
       hash = {
-        text: comment_info.css("div.comment-text").text,
+        text: comment_info.css("div.comment-text").text.strip,
+        level: level,
         url: url,
-        children: scrape_children(comment.css("> ol.comment-tree-replies"), url)
+        children: scrape_children(comment.css("> ol.comment-tree-replies"), url, level + 1)
       }
       hash
     end

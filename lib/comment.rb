@@ -2,7 +2,7 @@ class Comment
   extend Memorable::ClassMethods
   include Memorable::InstanceMethods
 
-  attr_accessor :children, :parent, :text, :author, :votes, :age, :url
+  attr_accessor :children, :parent, :text, :author, :votes, :age, :url, :level
 
   @@all = []
 
@@ -22,19 +22,28 @@ class Comment
     all.select { |comment| comment.url == url }
   end
 
+  def self.find_top_by_url(url)
+    all.select { |comment| comment.url == url && comment.level == 0}
+  end
+
   def display(indent = 0)
-    puts "\t" * indent + self.text
+    puts "\t" * indent + self.text + "\n\n"
   end
 
   def self.display_page(url)
-    display(find_by_url(url))
+    display(find_top_by_url(url))
   end
 
-  def self.display(array = all)
+  def self.display(array, indent = 0)
+    #binding.pry
     array.each do |comment|
-      comment.display
-      display(comment.children)
+      comment.display(indent)
+      display(comment.children, indent + 1)
     end
+  end
+
+  def self.all_top
+    @@all.select { |comment| comment.level == 0 }
   end
 
   def self.all
