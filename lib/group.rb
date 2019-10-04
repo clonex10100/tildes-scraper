@@ -15,6 +15,10 @@ class Group
     puts description + "    " + subs
   end
 
+  def get_url
+    "https://tildes.net/#{name}"
+  end
+
   def self.display
     all.each do |group|
       group.display

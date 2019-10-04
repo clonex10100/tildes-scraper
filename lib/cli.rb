@@ -1,6 +1,6 @@
 class CommandLineInterface
   def run
-    @page = PageManager.create_page_from_url("https://tildes.net")
+    front_page
     help
     input = nil
     until input == "exit"
@@ -11,8 +11,13 @@ class CommandLineInterface
         help
       when "exit"
         puts "Goodbye"
+      when "frontpage"
+        font_page
+        page_list
       when "groups"
         groups
+      when "group"
+        group(input.split(" ")[1])
       when "page"
         page
       when "list"
@@ -30,7 +35,7 @@ class CommandLineInterface
   end
 
   def view(index_string)
-    index = validate_index(index_string)
+    index = validate_index(index_string, @pagic.topics.length)
     return nil if !index
     @page.topics[index].display_content
   end
@@ -54,14 +59,24 @@ class CommandLineInterface
   end
 
   def groups
-    if Group.all.length == 0
-      Group.create_from_array(Scraper.scrape_groups("/groups"))
-    end
+    generate_groups
     Group.display
   end
 
+  def group(index_string)
+    generate_groups
+    index = validate_index(index_string, Group.all.length)
+    return nil if !index
+    @page = PageManager.create_page_from_url(Group.all[index].get_url)
+    page_list
+  end
+
+  def front_page
+    @page = PageManager.create_page_from_url("https://tildes.net")
+  end
+
   def comments(index_string)
-    index = validate_index(index_string)
+    index = validate_index(index_string, @pagic.topics.length)
     return nil if !index
     link = @topics[index].comment_link
     comment_array = Scraper.scrape_comments(link)
@@ -81,6 +96,8 @@ class CommandLineInterface
   def help
     puts "To view this list, type: help"
     puts "To view groups: groups"
+    puts "To view group page: group [index]"
+    puts "To return to front page: frontpage"
     puts "To view topics of current page: list"
     puts "To view next page: next"
     puts "To view prev page: prev"
@@ -89,11 +106,17 @@ class CommandLineInterface
   end
 
   private
-  def validate_index(index_string)
-    if !index_string || index_string.match(/\D/) || !index_string.to_i.between?(1, @page.topics.length)
+  def validate_index(index_string, max)
+    if !index_string || index_string.match(/\D/) || !index_string.to_i.between?(1, max)
       puts "Invalid index"
       return nil
     end
     index_string.to_i - 1
+  end
+
+  def generate_groups
+    if Group.all.length == 0
+      Group.create_from_array(Scraper.scrape_groups("/groups"))
+    end
   end
 end
