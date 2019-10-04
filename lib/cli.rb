@@ -12,7 +12,7 @@ class CommandLineInterface
       when "exit"
         puts "Goodbye"
       when "frontpage"
-        font_page
+        front_page
         page_list
       when "groups"
         groups
@@ -30,12 +30,14 @@ class CommandLineInterface
         view(input.split(" ")[1])
       when "comments"
         comments(input.split(" ")[1])
+      else 
+        puts "Invalid command"
       end
     end
   end
 
   def view(index_string)
-    index = validate_index(index_string, @pagic.topics.length)
+    index = validate_index(index_string, @page.topics.length)
     return nil if !index
     @page.topics[index].display_content
   end
@@ -79,9 +81,10 @@ class CommandLineInterface
     index = validate_index(index_string, @page.topics.length)
     return nil if !index
     link = @page.topics[index].comment_link
-    comment_array = Scraper.scrape_comments(link)
-    Comment.create_from_array(comment_array)
-    binding.pry
+    if Comment.find_by_url(link).length == 0
+      comment_array = Scraper.scrape_comments(link)
+      Comment.create_from_array(comment_array)
+    end
     Comment.display_page(link)
   end
 

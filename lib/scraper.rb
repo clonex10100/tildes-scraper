@@ -30,7 +30,7 @@ class Scraper
       topic_text = topic.css(".topic-text-excerpt")
       topic_text = topic_text.children.reject { |el| el.name == "summary" }
       if topic_text.length > 0
-        info[:topic_text] = topic_text.reduce("") { |s, el| s + el.text}
+        info[:topic_text] = topic_text.reduce("") { |s, el| s + el.text}.strip
       else
         info[:link] = title.attribute("href").value
       end

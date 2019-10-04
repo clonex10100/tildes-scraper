@@ -2,6 +2,9 @@ class PageManager
   @@index = 0
 
   def self.create_page_from_url(url)
+    Page.all.clear
+    Topic.all.clear
+    Comment.all.clear
     data = Scraper.scrape_page(url)
     #Set page_id in page data hash
     data[0][:page_id] = @@index
