@@ -76,9 +76,9 @@ class CommandLineInterface
   end
 
   def comments(index_string)
-    index = validate_index(index_string, @pagic.topics.length)
+    index = validate_index(index_string, @page.topics.length)
     return nil if !index
-    link = @topics[index].comment_link
+    link = @page.topics[index].comment_link
     comment_array = Scraper.scrape_comments(link)
     Comment.create_from_array(comment_array)
     binding.pry
@@ -119,3 +119,4 @@ class CommandLineInterface
       Group.create_from_array(Scraper.scrape_groups("/groups"))
     end
   end
+end
