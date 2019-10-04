@@ -1,7 +1,5 @@
 class CommandLineInterface
-  BASE_URL = "https://tildes.net"
   def run
-    Scraper.scrape_comments("https://tildes.net/~comp/i0k/please_recommend_me_a_linux_distribution_that_is_super_stable_and_never_make_me_install_again_but")
     @page = PageManager.create_page_from_url("https://tildes.net/?order=comments")
     @topics = @page.topics
     help
@@ -34,12 +32,10 @@ class CommandLineInterface
     index = validate_index(index_string)
     return nil if !index
     link = @topics[index].comment_link
-    puts BASE_URL + link
-    comment_array = Scraper.scrape_comments(BASE_URL + link)
+    comment_array = Scraper.scrape_comments(link)
     Comment.create_from_array(comment_array)
     binding.pry
-    Comment.display
-    Comment.all.first.display
+    Comment.display_page(link)
   end
 
   def page_list

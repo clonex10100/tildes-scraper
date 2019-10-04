@@ -2,7 +2,7 @@ class Comment
   extend Memorable::ClassMethods
   include Memorable::InstanceMethods
 
-  attr_accessor :children, :parent, :text, :author, :votes, :age
+  attr_accessor :children, :parent, :text, :author, :votes, :age, :url
 
   @@all = []
 
@@ -18,8 +18,16 @@ class Comment
     end
   end
 
+  def self.find_by_url(url)
+    all.select { |comment| comment.url == url }  
+  end
+
   def display(indent = 0)
     puts "\t" * indent + self.text
+  end
+
+  def self.display_page(url)
+    display(find_by_url(url))
   end
 
   def self.display(array = all)

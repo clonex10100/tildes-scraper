@@ -1,4 +1,5 @@
 class Scraper
+  BASE_URL = "https://tildes.net"
   #Returns an array with two elements.
   #the first a hash containing general page info
   #the secound an array of hashes containing topic info
@@ -39,19 +40,20 @@ class Scraper
   end
 
   def self.scrape_comments(url)
-    doc = open_url(url)
+    doc = open_url(BASE_URL + url)
     comments = doc.css("#comments")
-    array = scrape_children(comments)
+    array = scrape_children(comments, url)
     array
   end
 
   private
-  def self.scrape_children(top_comment)
+  def self.scrape_children(top_comment, url)
     comments = top_comment.css("> li > article").map do |comment|
       comment_info = comment.css("> div.comment-itself").first
       hash = {
-        text: comment_info.css("comment-text").text,
-        children: scrape_children(comment.css("> ol.comment-tree-replies"))
+        text: comment_info.css("div.comment-text").text,
+        url: url,
+        children: scrape_children(comment.css("> ol.comment-tree-replies"), url)
       }
       hash
     end
