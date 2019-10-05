@@ -7,7 +7,9 @@ Ruby Gem designed to scrape the site tildes.net
 
 ## Usage
 
-To use the command line tildes.net browser, run $tilde-scraper
+To use the command line tildes.net browser, run 
+
+$tilde-scraper
 
 ## Contributing
 
