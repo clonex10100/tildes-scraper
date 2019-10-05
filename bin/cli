@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
-require_relative '../config/enviornment'
+require_relative '../lib/tilde_scraper.rb'
 
-CommandLineInterface.new.run
+TildeScraper::CommandLineInterface.new.run
