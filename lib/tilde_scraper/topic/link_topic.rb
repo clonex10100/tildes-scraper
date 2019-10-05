@@ -5,6 +5,10 @@ class TildeScraper::LinkTopic < TildeScraper::Topic
     "link"
   end
 
+  def content
+    link
+  end
+
   def display_content
     puts "Topic Link: #{link}"
   end

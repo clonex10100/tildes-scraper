@@ -21,6 +21,14 @@ module TildeScraper
       page
   end
 
+  def self.get_page_with_comments(url)
+    page = get_page(url)
+    #Create comments for each topic
+    page.topics.each do |topic|
+      get_comments(topic.comment_link)
+    end
+  end
+
   def self.get_groups
     TildeScraper::Group.all.clear
     TildeScraper::Group.create_from_array(TildeScraper::Scraper.scrape_groups("/groups"))
