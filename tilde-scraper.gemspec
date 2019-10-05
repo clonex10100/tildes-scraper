@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version     = TildeScraper::VERSION
   s.date        = '2019-10-05'
   s.summary     = "Scrapes the website tildes.net"
-  s.description = "Scrapes the website tildes.net"
+  s.description = "Scrapes the website tildes.net, can scrape topics on a page, contents or link of a topic, top level groups, and comments on a topic"
   s.authors     = ["Noah Evans"]
   s.email       = 'noah@nevans.me'
   s.files       = [
@@ -24,10 +24,9 @@ Gem::Specification.new do |s|
                   ]
   s.homepage    = 'http://rubygems.org/gems/tildes-scraper'
   s.license     = 'MIT'
-  s.executables << 'cli'
+  s.executables << 'tilde-scraper'
 
-  s.add_development_dependency "bundler"
-  s.add_development_dependency "nokogiri"
-  s.add_development_dependency "pry"
-  s.add_development_dependency "require_all"
+  s.add_development_dependency "bundler", "~> 2.0"
+  s.add_development_dependency "nokogiri", "~> 1.10"
+  s.add_development_dependency "pry", "~> 0.12"
 end

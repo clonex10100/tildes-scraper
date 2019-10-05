@@ -20,7 +20,8 @@ class TildeScraper::Group
   end
 
   def self.display
-    all.each do |group|
+    all.each.with_index(1) do |group, index|
+      puts index
       group.display
       puts ""
     end

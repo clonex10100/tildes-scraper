@@ -61,12 +61,16 @@ class TildeScraper::CommandLineInterface
   end
 
   def groups
-    generate_groups
+    if TildeScraper::Group.all.length == 0
+      TildeScraper::get_groups
+    end
     TildeScraper::Group.display
   end
 
   def group(index_string)
-    generate_groups
+    if TildeScraper::Group.all.length == 0
+      TildeScraper::get_groups
+    end
     index = validate_index(index_string, TildeScraper::Group.all.length)
     return nil if !index
     @page = TildeScraper::get_page(TildeScraper::Group.all[index].get_url)
@@ -114,11 +118,5 @@ class TildeScraper::CommandLineInterface
       return nil
     end
     index_string.to_i - 1
-  end
-
-  def generate_groups
-    if TildeScraper::Group.all.length == 0
-      TildeScraper::Group.create_from_array(TildeScraper::Scraper.scrape_groups("/groups"))
-    end
   end
 end

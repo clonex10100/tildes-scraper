@@ -21,6 +21,11 @@ module TildeScraper
       page
   end
 
+  def self.get_groups
+    TildeScraper::Group.all.clear
+    TildeScraper::Group.create_from_array(TildeScraper::Scraper.scrape_groups("/groups"))
+  end
+
   def self.get_comments(url)
       comment_array = TildeScraper::Scraper.scrape_comments(url)
       TildeScraper::Comment.create_from_array(comment_array)

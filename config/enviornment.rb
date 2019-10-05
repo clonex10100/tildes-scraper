@@ -1,7 +1,16 @@
 require 'open-uri'
-require 'bundler'
-Bundler.require
+require 'pry'
+require 'nokogiri'
 
-require_all 'lib/tilde_scraper/concerns'
+
+require_relative '../lib/tilde_scraper/concerns/memorable.rb'
+require_relative '../lib/tilde_scraper/topic/topic.rb'
+require_relative '../lib/tilde_scraper/topic/link_topic.rb'
+require_relative '../lib/tilde_scraper/topic/text_topic.rb'
 require_relative '../lib/tilde_scraper/topic/topic'
-require_all 'lib'
+require_relative '../lib/tilde_scraper/api.rb'
+require_relative '../lib/tilde_scraper/cli.rb'
+require_relative '../lib/tilde_scraper/comment.rb'
+require_relative '../lib/tilde_scraper/group.rb'
+require_relative '../lib/tilde_scraper/page.rb'
+require_relative '../lib/tilde_scraper/scraper.rb'
