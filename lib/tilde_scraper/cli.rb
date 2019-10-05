@@ -44,7 +44,7 @@ class TildeScraper::CommandLineInterface
 
   def next_page
     if @page.next_link
-      @page = TildeScraper::PageManager.create_page_from_url(@page.next_link)
+      @page = TildeScraper::get_page(@page.next_link)
       page_list
     else
       puts "Last page"
@@ -53,7 +53,7 @@ class TildeScraper::CommandLineInterface
 
   def prev_page
     if @page.next_link
-      @page = TildeScraper::PageManager.create_page_from_url(@page.prev_link)
+      @page = TildeScraper::get_page(@page.prev_link)
       page_list
     else
       puts "No previous page"
@@ -69,12 +69,12 @@ class TildeScraper::CommandLineInterface
     generate_groups
     index = validate_index(index_string, TildeScraper::Group.all.length)
     return nil if !index
-    @page = TildeScraper::PageManager.create_page_from_url(TildeScraper::Group.all[index].get_url)
+    @page = TildeScraper::get_page(TildeScraper::Group.all[index].get_url)
     page_list
   end
 
   def front_page
-    @page = TildeScraper::PageManager.create_page_from_url("https://tildes.net")
+    @page = TildeScraper::get_page("https://tildes.net")
   end
 
   def comments(index_string)
@@ -82,8 +82,7 @@ class TildeScraper::CommandLineInterface
     return nil if !index
     topic = @page.topics[index]
     if topic.comments.length == 0
-      comment_array = TildeScraper::Scraper.scrape_comments(topic.comment_link)
-      TildeScraper::Comment.create_from_array(comment_array)
+      TildeScraper::get_comments(topic.comment_link)
     end
     TildeScraper::Comment.display_page(topic.comment_link)
   end
