@@ -47,7 +47,6 @@ class TildeScraper::Comment
   end
 
   def self.display(array, indent = 0)
-    #binding.pry
     array.each do |comment|
       comment.display(indent)
       display(comment.children, indent + 1)

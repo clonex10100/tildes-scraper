@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version     = TildeScraper::VERSION
   s.date        = '2019-10-05'
   s.summary     = "Scrapes the website tildes.net"
-  s.description = "Scrapes the website tildes.net, can scrape topics on a page, contents or link of a topic, top level groups, and comments on a topic"
+  s.description = "Scrapes the website tildes.net. Can scrape topics on a page, top level groups, and comments on a topic. Also has a very basic cli for browsing"
   s.authors     = ["Noah Evans"]
   s.email       = 'noah@nevans.me'
   s.files       = [

@@ -1,5 +1,4 @@
 class TildeScraper::Scraper
-  BASE_URL = "https://tildes.net"
   #Returns an array with two elements.
   #the first a hash containing general page info
   #the secound an array of hashes containing topic info
@@ -21,7 +20,7 @@ class TildeScraper::Scraper
       info = {
         title: title.text,
         comment_count: topic.css("div.topic-info-comments").text.strip,
-        comment_link: topic.css("div.topic-info-comments a").attribute("href").value.split(" ").first,
+        comment_link: "https://tildes.net" + topic.css("div.topic-info-comments a").attribute("href").value.split(" ").first,
         group: metadata.css("span.topic-group").text,
         word_count: metadata.css("span.topic-content-metadata").text.split(" ")[0],
         age: topic.css("time.time-responsive").attribute("data-abbreviated").value,
@@ -40,7 +39,7 @@ class TildeScraper::Scraper
   end
 
   def self.scrape_groups(url)
-    doc = open_url(BASE_URL + url)
+    doc = open_url(url)
     out = doc.css("tr.group-level-0").map do |group|
       {
         name: group.css("a").text,
@@ -52,7 +51,7 @@ class TildeScraper::Scraper
   end
 
   def self.scrape_comments(url)
-    doc = open_url(BASE_URL + url)
+    doc = open_url(url)
     comments = doc.css("#comments")
     array = scrape_children(comments, url)
     array
