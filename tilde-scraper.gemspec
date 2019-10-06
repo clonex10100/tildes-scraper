@@ -27,6 +27,5 @@ Gem::Specification.new do |s|
   s.executables << 'tilde-scraper'
 
   s.add_development_dependency "bundler", "~> 2.0"
-  s.add_development_dependency "nokogiri", "~> 1.10"
-  s.add_development_dependency "pry", "~> 0.12"
+  s.add_dependency "nokogiri", "~> 1.10"
 end
